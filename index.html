@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Chart</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body style="background-color: black; color: white;">
+    <h1 style="color: white;">Interactive Star Chart from Kepler-22b Perspective</h1>
+    <div id="chart" style="width: 100%; height: 600px;"></div>
+    <button style="color: black;" onclick="generateChart()">Generate Star Chart</button>
+
+    <script>
+        function generateChart() {
+            fetch('/star_chart')
+                .then(response => response.json())
+                .then(data => {
+                    const chartDiv = document.getElementById('chart');
+                    Plotly.newPlot(chartDiv, data.data, data.layout);
+                })
+                .catch(error => console.error('Error generating chart:', error));
+        }
+    </script>
+</body>
+</html>
